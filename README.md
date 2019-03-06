@@ -6,4 +6,4 @@
 
 ## Design Patterns
 
-[23 种设计模式](./src/main/java/design/patterns/README.md)
+[设计模式](./src/main/java/design/patterns/README.md)
