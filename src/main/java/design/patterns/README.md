@@ -9,6 +9,8 @@
 ## 创建型模式
 
 - [简单工厂模式](./factory/simple/README.md)
+- [工厂方法模式](./factory/method/README.md)
+- [抽象工厂模式](./factory/abstract_/README.md)
 
 ## 结构型模式
 
