@@ -16,4 +16,8 @@
 
 ## 行为型模式
 
+## 参考
 
+每个设计模式的参考附在单独的 README 文件中。
+
+- [图说设计模式](https://design-patterns.readthedocs.io/zh_CN/latest/index.html)
