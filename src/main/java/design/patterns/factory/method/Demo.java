@@ -1,9 +1,15 @@
 package design.patterns.factory.method;
 
+/**
+ * 抽象产品
+ */
 abstract class Logger {
    abstract public void info();
 }
 
+/**
+ * 具体产品
+ */
 class FileLog extends Logger {
 
    @Override
@@ -20,10 +26,16 @@ class ConsoleLog extends Logger {
     }
 }
 
+/**
+ * 抽象工厂
+ */
 abstract class LogFactory {
     abstract public Logger createLog();
 }
 
+/**
+ * 具体工厂
+ */
 class FileLogFactory extends LogFactory {
 
     @Override
