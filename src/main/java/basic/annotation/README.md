@@ -23,6 +23,9 @@ public @interface MyAnnotation {
  - `RetentionPolicy.SOURCE` 注解只在源码阶段保留，在编译器进行编译时它将被丢弃忽视。
  - `RetentionPolicy.CLASS` 注解只被保留到编译进行的时候，它并不会被加载到 JVM 中。
  - `RetentionPolicy.RUNTIME` 注解可以保留到程序运行的时候，它会被加载进入到 JVM 中，所以在程序运行时可以获取到它们。
+ 
+SOURCE 只保留在源码，所以查看 class 文件时是没有这个注解的，`@Override` 等注解即是这种；
+`CLASS` 在处理字节码文件的场景下有用，为默认值；`RUNTIME` 是自定义注解常用的，为了在运行时进行操作。
 
 ### Documented
 
@@ -70,8 +73,8 @@ public class Admin {
 
 ## Java 预定义注解
 
-- Deprecated 标记为过时
-- Override 标记为重写
+- Deprecated 标记为过时, `RUNTIME`
+- Override 标记为重写，`SOURCE`
 - SuppressWarnings 阻止警告
 - SafeVarargs
 - FunctionalInterface

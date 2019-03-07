@@ -4,6 +4,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.reflect.Method;
 
+@Retention(RetentionPolicy.SOURCE)
+@interface Temp {
+
+}
+
 @Retention(RetentionPolicy.RUNTIME)
 @interface Test {
 
@@ -11,11 +16,13 @@ import java.lang.reflect.Method;
 
 class DemoTest {
     @Test
+    @Temp
     public void should_add_works_well() {
         throw new AssertionError("not correct");
     }
 
     @Test
+    @Deprecated
     public void should_sub_works_well() {
         System.out.println("sub works well");
     }
