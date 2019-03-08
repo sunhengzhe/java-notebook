@@ -2,6 +2,7 @@
 
 ## Java Basic
 
+- [枚举](./src/main/java/basic/enums/README.md)
 - [注解](./src/main/java/basic/annotation/README.md)
 - [反射](./src/main/java/basic/reflection/README.md)
 
