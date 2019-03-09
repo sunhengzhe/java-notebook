@@ -53,7 +53,7 @@ String s = ls.get(0); // 4: Attempts to assign an Object to a String!
 
 若 `lo` 添加了 Object 进去，因为 ls 和 lo 指向的是同一个内存地址，那么 ls 里包含的就不仅仅是 String 类型的了。
 
-所以，一般地，如果 `Foo` 是 `Bar` 的子类型（子类或子接口），G 是一种类属性声明，那么这 **不** 意味着 G<Foo> 是 G<Bar> 的子类型。
+所以，一般地，如果 `Foo` 是 `Bar` 的子类型（子类或子接口），G 是一种类属性声明，那么这 **不** 意味着 `G<Foo>` 是 `G<Bar>` 的子类型。
 
 ## 通配符
 
