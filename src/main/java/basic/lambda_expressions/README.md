@@ -1,0 +1,194 @@
+# Lambda Expressions
+
+在 java 8 以上引入了 **函数式接口**（functional interface）的概念，指只有一个抽象方法的接口，如：
+
+```java
+interface CheckPerson {
+    boolean test(Person p);
+}
+```
+
+lambda 表达式可以简写函数式接口，CheckPerson 使用 lambda 表示如下：
+
+```java
+CheckPerson checkPerson = (Person p) -> p.getAge > 10;
+```
+
+基于类型推断，可以省略参数的类型：
+
+```java
+CheckPerson checkPerson = p -> p.getAge > 10;
+```
+
+像这种接口足够简单也很常用，JDK 已经帮我们定义了，类似的接口都在 `java.util.function` 中。
+
+比如像上面的例子，包含 test 方法的接口，可以使用 `Predicate<T>` 代替。
+
+```java
+interface Predicate<T> {
+    boolean test(T t);
+}
+```
+
+## 方法引用 Method References
+
+上面使用 lambda 表达式创建匿名函数，也可以使用 lambda 表达式调用一个具名函数。
+
+假设有 Person 类如下：
+
+```java
+public class Person {
+
+    public enum Sex {
+        MALE, FEMALE
+    }
+
+    String name;
+    LocalDate birthday;
+    Sex gender;
+    String emailAddress;
+
+    public int getAge() {
+        // ...
+    }
+    
+    public Calendar getBirthday() {
+        return birthday;
+    }    
+
+    public static int compareByAge(Person a, Person b) {
+        return a.birthday.compareTo(b.birthday);
+    }
+}
+```
+
+现在有一个 Person 的数组需要按年龄进行排序：
+
+```java
+Person[] rosterAsArray = roster.toArray(new Person[roster.size()]);
+
+class PersonAgeComparator implements Comparator<Person> {
+    public int compare(Person a, Person b) {
+        return a.getBirthday().compareTo(b.getBirthday());
+    }
+}
+        
+Arrays.sort(rosterAsArray, new PersonAgeComparator());
+```
+
+sort 的签名如下：
+
+```java
+static <T> void sort(T[] a, Comparator<? super T> c)
+```
+
+注意 `Comparator` 是一个函数式接口，所以这里可以直接使用 lambda 表达式，而不用创建一个 Comparator 的实现类。
+
+```java
+Arrays.sort(rosterAsArray,
+    (Person a, Person b) -> {
+        return a.getBirthday().compareTo(b.getBirthday());
+    }
+);
+```
+
+不过，比较方法在 `Person.compareByAge` 上已经实现了，所以在 lambda 表达式内可以直接调用他：
+
+```java
+Arrays.sort(rosterAsArray,
+    (a, b) -> Person.compareByAge(a, b)
+);
+```
+
+因为这个 lambda 表达式调用的是一个具名函数，所以可以使用方法引用来简写：
+
+```java
+Arrays.sort(rosterAsArray, Person::compareByAge);
+```
+
+方法引用 `Person::compareByAge` 在语义上等同于 lambda 表达式 `(a, b) -> Person.compareByAge(a, b)`，他们有两个特征：
+
+- 他们的形参都是 `Comparator<Person>.compare` 的复制，也就是 `(Person, Person)`
+- body 里都调用了 `Person.compareByAge`
+
+### 方法引用的类型
+
+方法引用有四种类型：
+
+| Kind | Example |
+| --- | --- |
+|Reference to a static method|	ContainingClass::staticMethodName|
+|Reference to an instance method of a particular object |	containingObject::instanceMethodName|
+|Reference to an instance method of an arbitrary object of a particular type	| ContainingType::methodName|
+|Reference to a constructor |	ClassName::new|
+
+#### 静态方法的引用
+
+`Person::compareByAge` 就是一个静态方法的引用。
+
+#### 特定对象的实例的引用 
+
+下面是一个例子：
+
+```java
+class ComparisonProvider {
+    public int compareByName(Person a, Person b) {
+        return a.getName().compareTo(b.getName());
+    }
+        
+    public int compareByAge(Person a, Person b) {
+        return a.getBirthday().compareTo(b.getBirthday());
+    }
+}
+
+ComparisonProvider myComparisonProvider = new ComparisonProvider();
+
+Arrays.sort(rosterAsArray, myComparisonProvider::compareByName);
+```
+
+JRE 会推断出方法的参数类型，也就是 `(Person, Person)`。
+
+#### 特定类型的任意对象的实例的引用
+
+下面是一个例子：
+
+```java
+String[] stringArray = { "Barbara", "James", "Mary", "John",
+    "Patricia", "Robert", "Michael", "Linda" };
+Arrays.sort(stringArray, String::compareToIgnoreCase);
+```
+
+#### 构造函数的引用
+
+```java
+public static <T, SOURCE extends Collection<T>, DEST extends Collection<T>> DEST transferElements(
+        SOURCE sourceCollection,
+        Supplier<DEST> collectionFactory
+) {
+        
+        DEST result = collectionFactory.get();
+        for (T t : sourceCollection) {
+            result.add(t);
+        }
+        return result;
+}
+```
+
+Supplier 是一个函数式接口，它包含一个不接受参数返回一个对象的方法。所以可以这么调：
+
+```java
+Set<Person> rosterSetLambda =
+    transferElements(roster, () -> { return new HashSet<>(); });
+```
+
+你可以使用构造函数的引用来替换这个地方：
+
+```java
+Set<Person> rosterSet = transferElements(roster, HashSet::new);
+```
+
+Java 编译器会推断你想创建一个 HashSet 的集合并且只包含 Person，所以你也可以这么调：
+
+```java
+Set<Person> rosterSet = transferElements(roster, HashSet<Person>::new);
+```
