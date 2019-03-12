@@ -15,6 +15,7 @@
 ## 结构型模式
 
 - [代理模式](./proxy/README.md)
+- [适配器模式](./adapter/README.md)
 
 ## 行为型模式
 
@@ -25,3 +26,4 @@
 每个设计模式的参考附在单独的 README 文件中。
 
 - [图说设计模式](https://design-patterns.readthedocs.io/zh_CN/latest/index.html)
+- [设计模式之禅](https://www.kancloud.cn/sstd521/design/193489)
