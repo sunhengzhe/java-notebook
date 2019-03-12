@@ -108,8 +108,6 @@ reduction 方法总是返回一个新的值。其实 accumulator 函数也是每
 
 与在处理过程中总是创建新值的 reduce 不同的是，collect 方法修改、改变已有的值。
 
-Consider how to find the average of values in a stream. You require two pieces of data: the total number of values and the sum of those values. However, like the reduce method and all other reduction methods, the collect method returns only one value. You can create a new data type that contains member variables that keep track of the total number of values and the sum of those values, such as the following class, Averager:
-
 考虑如何求流里面值的平均数。你需要两种数据：总数和个数。然而和 reduce 以及其他 reduction 方法一样，collect 方法只返回一个值，你可以创建一个新类型，包含你想追踪的数据比如总数和个数。如下面的 Averager：
 
 ```java
