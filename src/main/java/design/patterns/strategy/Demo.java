@@ -13,7 +13,7 @@ class Context {
 }
 
 interface IStategy {
-    public int operate(int a, int b);
+    int operate(int a, int b);
 }
 
 class Add implements IStategy {

@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 interface TargetByObject {
-    public String getName();
-    public String getAddress();
+    String getName();
+    String getAddress();
 }
 
 class AdapteeByObject implements AdapteeByObjectIml {
@@ -37,11 +37,11 @@ class AdapteeByObject2 implements AdapteeByObject2Iml {
 }
 
 interface AdapteeByObjectIml {
-    public Map<String, String> getUserInfo();
+    Map<String, String> getUserInfo();
 }
 
 interface AdapteeByObject2Iml {
-    public Map<String, String> getAddressInfo();
+    Map<String, String> getAddressInfo();
 }
 
 class AdapterByObject implements TargetByObject {

@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 interface Target {
-    public String getName();
-    public String getAddress();
+    String getName();
+    String getAddress();
 }
 
 class Adaptee {
@@ -45,6 +45,6 @@ class Adapter extends Adaptee implements Target {
 public class DemoByClass {
     public static void main(String[] args) {
         Target target = new Adapter("aa", "bb");
-        System.out.println(target.getName());
+        System.out.println(target.getName() + ":" + target.getAddress());
     }
 }

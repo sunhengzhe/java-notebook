@@ -2,7 +2,7 @@ package basic.reflection;
 
 import java.lang.reflect.Modifier;
 
-abstract interface ABC {
+interface ABC {
 
 }
 
