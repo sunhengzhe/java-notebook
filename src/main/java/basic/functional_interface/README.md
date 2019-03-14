@@ -9,32 +9,32 @@
 
 | 函数式接口 | 参数类型 | 返回类型 | 抽象方法名 | 描述 | 其他方法 |
 | --- | --- | --- | --- | --- | --- |
-| Runnable | 无 | void | run | 作为无参数或者返回值的动作运行 | |
-| Supplier<T> | 无 | T | get | 提供一个 T 类型的值 | |
-| Consumer<T> | T | void | accept | 处理一个 T 类型的值 | andThen |
-| BiConsumer<T, U> | T, U | void | accept | 处理 T 和 U 类型的值 | andThen |
-| Function<T, R> | T | R | apply | 有一个 T 类型参数的函数 | compose, andThen, identity |
-| BiFunction<T, U, R> | T, U | R | apply | 有 T 和 U 类型参数的函数 | andThen |
-| UnaryOperator<T> | T | T | apply | 类型 T 上的一元操作符 | compose, andThen, identity |
-| BinaryOperator<T> | T, T | T | apply | 类型 T 上的二元操作符 | andThen, maxBy, minBy |
-| Predicate<T> | T | boolean | test | 布尔值函数 | and, or, negate, isEqual |
-| BiPredicate<T, U> | T, U | boolean | test | 有两个参数的布尔值函数 | and, or, negate |
+| `Runnable` | 无 | void | run | 作为无参数或者返回值的动作运行 | |
+| `Supplier<T>` | 无 | T | get | 提供一个 T 类型的值 | |
+| `Consumer<T>` | T | void | accept | 处理一个 T 类型的值 | andThen |
+| `BiConsumer<T, U>` | T, U | void | accept | 处理 T 和 U 类型的值 | andThen |
+| `Function<T, R>` | T | R | apply | 有一个 T 类型参数的函数 | compose, andThen, identity |
+| `BiFunction<T, U, R>` | T, U | R | apply | 有 T 和 U 类型参数的函数 | andThen |
+| `UnaryOperator<T>` | T | T | apply | 类型 T 上的一元操作符 | compose, andThen, identity |
+| `BinaryOperator<T>` | T, T | T | apply | 类型 T 上的二元操作符 | andThen, maxBy, minBy |
+| `Predicate<T>` | T | boolean | test | 布尔值函数 | and, or, negate, isEqual |
+| `BiPredicate<T, U>` | T, U | boolean | test | 有两个参数的布尔值函数 | and, or, negate |
 
 对于基本类型，为了减少自动装箱，还有一些基本类型的函数式接口：
 
 | 函数式接口 | 参数类型 |  返回类型 | 抽象方法名 |
 | --- | --- | --- | --- |
-| BooleanSupplier | none | boolean | getAsBoolean |
-| PSupplier | none | p | getAsP |
-| PConsumer | p | void | accept |
-| ObjPConsumer<T> | T, p | void | accept |
-| PFunction<T> | p | T | apply |
-| PToQFunction | p | q | applyAsQ |
-| ToPFunction<T> | T | p | applyAsP |
-| ToPBiFunction<T, U> | T, U | p | applyAsP |
-| PUnaryOperator | p | p | applyAsP |
-| PBinaryOperator | p, p | p | applyAsP |
-| PPredicate | p | boolean | test |
+| `BooleanSupplier` | none | boolean | getAsBoolean |
+| `PSupplier` | none | p | getAsP |
+| `PConsumer` | p | void | accept |
+| `ObjPConsumer<T>` | T, p | void | accept |
+| `PFunction<T>` | p | T | apply |
+| `PToQFunction` | p | q | applyAsQ |
+| `ToPFunction<T>` | T | p | applyAsP |
+| `ToPBiFunction<T, U>` | T, U | p | applyAsP |
+| `PUnaryOperator` | p | p | applyAsP |
+| `PBinaryOperator` | p, p | p | applyAsP |
+| `PPredicate` | p | boolean | test |
 
 *其中，p, q 为 int, long, double；P, Q 为 Int, Long, Double*
 
