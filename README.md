@@ -7,16 +7,13 @@
 - [反射](./src/main/java/basic/reflection/README.md)
 - [泛型](./src/main/java/basic/generics/README.md)
 - [Lambda 表达式](./src/main/java/basic/lambda_expressions/README.md)
+- [函数式接口](./src/main/java/basic/functional_interface/README.md)
 - [聚合操作](./src/main/java/basic/aggregate_operations/README.md)
 - [集合](./src/main/java/basic/collection/README.md)
 
 ## Design Patterns
 
-设计模式有三类：
-
-- 创建型模式
-- 结构型模式
-- 行为型模式
+设计模式有三类：创建型模式、结构型模式、行为型模式。
 
 ### 创建型模式
 
