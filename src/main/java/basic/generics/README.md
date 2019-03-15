@@ -85,7 +85,7 @@ Demo.printCollection(integers);
 
 ## 带限制的通配符
 
-可以限制通配符继承于某个类：
+可以限制通配符继承于某个类，或者实现了某个接口：
 
 ```java
 public static void printPersons(Collection<? extends Person> c) {
@@ -93,6 +93,12 @@ public static void printPersons(Collection<? extends Person> c) {
         e.say();
     }
 }
+```
+
+如果要有多个限定，可以使用 `&` 分隔：
+
+```java
+T extends Comparable & Serializable
 ```
 
 ## 泛型方法
