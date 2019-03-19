@@ -1,41 +1,56 @@
 # Spring Boot 2.x
 
-## Getting Started Guides
+## 简单 Restful Web 服务
 
-### 1. 搭建一个 RESTful Web 服务
+### Controller
 
-地址：[Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
+给类添加 `@RestController` 注解，然后通过给方法添加 Mapping 注解即可映射路由。
 
-#### 创建 DTO
+`@RestController` 实际上等于 `@Controller` + `@ResponseBody`。
 
-DTO 就是一个简单的 POJO， Spring 会使用 [Jackson JSON](https://github.com/FasterXML/jackson) 库自动转换 JSON
+#### Request Mapping
 
-#### 创建 Controller
-
-Controller 使用 `@RestController` 注解标识，然后通过给方法添加 Mapping 注解即可映射路由。`RestController` 是 `@Controller` 和 `@ResponseBody` 相结合的简写。
+常用 Mapping 注解有：
 
 - `@RequestMapping` 将 HTTP Request 映射到对应的方法。默认会映射所有的 HTTP 请求方式，如果需要只映射 GET，需要指定 `@RequestMapping(method=GET)`
+- `@GetMapping`、`@PostMapping`、`@DeleteMapping` 等分别对应相应的 HTTP 请求。
 
-除此之外还有 `@GetMapping`、`@PostMapping` 等。
+#### 接受参数
 
-`@RequestParam` 用来绑定 query string 的值到方法的参数，并可以指定默认值。value 为 query 的值，defaultValue 为默认值。
+1）`@RequestParam` 从 query 里获取：
 
 ```java
-@RestController
-public class GreetingController {
-
-    private static final String template = "Hello, %s!";
-    private final AtomicLong counter = new AtomicLong();
-
-    @RequestMapping("/greeting")
-    public Greeting greeting(@RequestParam(value="name", defaultValue="World") String name) {
-        return new Greeting(counter.incrementAndGet(),
-                            String.format(template, name));
-    }
+@GetMapping("/hello")
+public String hello(@RequestParam(value="message", defaultValue="World") String content) {
+    return "Hello, " + content;
 }
 ```
 
-#### 启动应用
+上面代码接受 message 参数，并设置默认参数为 World：`curl localhost:8080/hello?message=123`
+
+2） `@PathVariable` 从路由里获取:
+
+```java
+@GetMapping("/hello/{message}")
+public String hello(@PathVariable String message) {
+    return "Hello, " + message;
+}
+```
+
+上面代码接受 message 路由参数：`curl localhost:8080/hello/123`
+
+3）`@RequestBody` 将请求体映射到 entity：
+
+```java
+@PostMapping("/employees")
+Employee newEmployee(@RequestBody Employee newEmployee) {
+    return repository.save(newEmployee);
+}
+```
+
+上面代码接受一个 json 串，使用 [Jackson JSON](https://github.com/FasterXML/jackson) 库转换为 Employee 对象。
+
+## 启动应用
 
 Application 是 Spring Boot 项目的入口，使用 `@SpringBootApplication` 注解标识。
 
@@ -56,14 +71,12 @@ public class Application {
 - `@EnableWebMvc`
 - `@ComponentScan`
 
-### 2. 通过 JPA 访问数据
-
-地址：[Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa/)
+## 通过 JPA 访问数据
 
 JPA（Java Persistence API）是 Sun 公司在 Java EE 5 规范中提出的 Java 持久化接口。
 JPA 是一个标准，因此任何声称符合 JPA 标准的框架都遵循同样的架构，提供相同的访问 API，这保证了基于JPA开发的企业应用能够经过少量的修改就能够在不同的JPA框架下运行。
 
-#### 创建简单实体
+### 创建简单实体
 
 通过 `@Entity` 标注的 POJO 即为 JPA 的 entity，如果不标注 `@Table`，则表示该 entity 映射到同名的表。
 
@@ -96,7 +109,7 @@ public class Customer {
 }
 ```
 
-#### 创建简单查询
+### 创建简单查询
 
 要创建简单查询，定义一个接口继承 `CrudRepository`：
 
