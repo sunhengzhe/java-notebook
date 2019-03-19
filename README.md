@@ -16,6 +16,14 @@
 
 - [AOP](./src/main/java/aop/README.md)
 
+## SQL
+
+- [事务](./src/main/java/mysql/transaction/README.md)
+
+## 常用库
+
+- [Lombok](./src/main/java/libraries/lombok/README.md)
+
 ## Spring
 
 - [Spring Boot 2.x](./src/main/java/spring/boot/README.md)
@@ -46,7 +54,3 @@
 
 - [图说设计模式](https://design-patterns.readthedocs.io/zh_CN/latest/index.html)
 - [设计模式之禅](https://www.kancloud.cn/sstd521/design/193489)
-
-## SQL
-
-- [事务](./src/main/java/mysql/transaction/README.md)
