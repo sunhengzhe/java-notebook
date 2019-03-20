@@ -18,7 +18,7 @@
 
 ## SQL
 
-- [事务](./src/main/java/mysql/transaction/README.md)
+- [事务](./src/main/java/database/transaction/README.md)
 
 ## 常用库
 
