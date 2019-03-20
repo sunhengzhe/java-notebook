@@ -131,3 +131,88 @@ repository.findById(1L)
 				.ifPresent(customer -> {})
 repository.findByLastName("Bauer").forEach(bauer -> {});	
 ```
+
+## 异常处理
+
+### ExceptionHandler
+
+如果在 Controller 里面抛出了异常，可以在被 `@ExceptionHandler` 注解的方法中进行处理：
+
+```java
+@ExceptionHandler(UserNotFoundException.class)
+public ResponseEntity handleUserNotFoundException(UserNotFoundException e) {
+    List<String> errors = Collections.singletonList(e.getMessage());
+    return new ResponseEntity(errors, HttpStatus.NOT_FOUND);
+}
+```
+
+该方法处理所在 Controller 内抛出的 `UserNotFoundException` 异常，并返回错误信息。
+
+但这种方式会造成 Controller 间可能会有很多重复代码，因为不同的 Controller 可能都会处理相同的异常。
+这种情况下可以使用 `@ControllerAdvice`，被它注解的类作为一个全局错误处理器（GlobalExceptionHandler）。
+这样可以拦截应用内所有的控制器抛出的异常。
+
+#### 编写 controller advice
+
+1. 创建自定义异常类。虽然 Spring 内置很多通用的异常类，但是最佳实践的做法是创建自定义的异常或者继承已有异常。
+2. 应用内只创建一个 controller advice。用单个类来封装所有的异常处理方法。
+3. 编写一个通用的 handleException 方法，只有这个方法使用 `@ExceptionHandler` 注解。在这个方法里面会处理所有定义的异常，并分发到其他特定的 handler 方法中去。
+4. 针对每种异常编写对应的 handler。比如有 `UserNotFoundException` 异常，则创建一个 `handleUserNotFoundException` 方法。
+5. 创建一个方法用来响应给用户。handler 方法只是编写处理异常的逻辑，它们最后都会调用这个方法来发送响应给用户，这个方法会接受一个异常信息列表并指定 HTTP 状态码。
+
+示例代码如下：
+
+```java
+@ControllerAdvice
+public class GlobalExceptionHandler {
+    /** Provides handling for exceptions throughout this service. */
+    @ExceptionHandler({ UserNotFoundException.class, ContentNotAllowedException.class })
+    public final ResponseEntity<ApiError> handleException(Exception ex, WebRequest request) {
+        HttpHeaders headers = new HttpHeaders();
+
+        if (ex instanceof UserNotFoundException) {
+            HttpStatus status = HttpStatus.NOT_FOUND;
+            UserNotFoundException unfe = (UserNotFoundException) ex;
+
+            return handleUserNotFoundException(unfe, headers, status, request);
+        } else if (ex instanceof ContentNotAllowedException) {
+            HttpStatus status = HttpStatus.BAD_REQUEST;
+            ContentNotAllowedException cnae = (ContentNotAllowedException) ex;
+
+            return handleContentNotAllowedException(cnae, headers, status, request);
+        } else {
+            HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+            return handleExceptionInternal(ex, null, headers, status, request);
+        }
+    }
+
+    /** Customize the response for UserNotFoundException. */
+    protected ResponseEntity<ApiError> handleUserNotFoundException(UserNotFoundException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        List<String> errors = Collections.singletonList(ex.getMessage());
+        return handleExceptionInternal(ex, new ApiError(errors), headers, status, request);
+    }
+
+    /** Customize the response for ContentNotAllowedException. */
+    protected ResponseEntity<ApiError> handleContentNotAllowedException(ContentNotAllowedException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        List<String> errorMessages = ex.getErrors()
+                .stream()
+                .map(contentError -> contentError.getObjectName() + " " + contentError.getDefaultMessage())
+                .collect(Collectors.toList());
+
+        return handleExceptionInternal(ex, new ApiError(errorMessages), headers, status, request);
+    }
+
+    /** A single place to customize the response body of all Exception types. */
+    protected ResponseEntity<ApiError> handleExceptionInternal(Exception ex, ApiError body, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        if (HttpStatus.INTERNAL_SERVER_ERROR.equals(status)) {
+            request.setAttribute(WebUtils.ERROR_EXCEPTION_ATTRIBUTE, ex, WebRequest.SCOPE_REQUEST);
+        }
+
+        return new ResponseEntity<>(body, headers, status);
+    }
+}
+```
+
+### 参考
+
+- [Understanding Spring’s @ControllerAdvice](https://medium.com/@jovannypcg/understanding-springs-controlleradvice-cd96a364033f)
