@@ -15,6 +15,58 @@ NoSQL 即 Not Only SQL，泛指非关系型数据库。是为了解决高并发�
 
 NoSQL 不像传统的关系型数据库一样把数据存放在表中，而且在搭建数据库之前需要仔细设计 schema。它尤其适用于处理大量的、分布式数据。
 
+![](https://cdn.ttgtmedia.com/rms/onlineImages/data_management-nosql.png)
+
+### 键值对型
+
+key-value 模型十分简单，所以在会话管理和 web 应用缓存中有着高性能和高可扩展性，基于不同的实现，可以存储在内存、固态硬盘或磁盘驱动器中。
+
+例如 Aerospike, Berkeley DB, MemchacheDB, Redis 和 Riak 等。
+
+### 文档型
+
+文档型数据库主要用来存储半结构化数据（semi-structured data）和描述文档格式的数据。
+
+例如 Couchbase Server, CouchDB, DocumentDB, MarkLogic 和 MongoDB 等。
+
+### 列式存储
+
+列式存储相对于传统的行式存储而言的，列式存储按列存储数据：
+
+![](https://img-blog.csdn.net/20141115094556515?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZGNfNzI2/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center)
+
+对比优缺点如下：
+
+行式存储优点：
+
+- 数据被保存在一起
+- INSERT/UPDATE 容易
+
+列式存储优点：
+
+- 查询时只有涉及到的列会被读取
+- 投影(projection)很高效
+- 任何列都能作为索引
+
+行式存储缺点:
+
+- 选择(Selection)时即使只涉及某几列，所有数据也都会被读取
+
+列式存储缺点：
+
+- 选择完成时，被选择的列要重新组装
+- INSERT/UPDATE 比较麻烦
+        
+#### 参考
+- [几张图看懂列式存储](https://blog.csdn.net/dc_726/article/details/41143175)
+
+### 图表型
+
+图表型存储使用节点（node）表示数据，使用边（edge）表示节点之间的连接。
+因为图形系统存储节点之间的关系，它可以支持更丰富的数据关系的表示。
+
+例如 AllegroGraph, IBM Graph, Neo4j 和 Titan 等。
+
 ## 事务
 
 事务的四大特性 ACID，分别是 Atomicity（原子性）、Consistency（一致性）、Isolation（隔离性）、Durability（持久性）。
