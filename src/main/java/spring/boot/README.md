@@ -216,3 +216,50 @@ public class GlobalExceptionHandler {
 ### 参考
 
 - [Understanding Spring’s @ControllerAdvice](https://medium.com/@jovannypcg/understanding-springs-controlleradvice-cd96a364033f)
+
+## 服务端渲染
+
+### JSP
+
+引入 jsp 依赖：
+
+```xml
+<dependency>
+    <groupId>org.apache.tomcat.embed</groupId>
+        <artifactId>tomcat-embed-jasper</artifactId>
+    <scope>provided</scope>
+</dependency>
+```
+
+控制器：
+
+```java
+@Controller
+public class LoginController {
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String showLoginPage(ModelMap model) {
+        model.put("name", "Starter Security");
+        return "welcome";
+    }
+}
+```
+
+showLoginPage 返回 jsp 的文件名，在 `src/main/webapp/WEB-INF/jsp/` 目录下新建 `welcome.jsp` 文件：
+
+```jsp
+<div class="container">
+    Welcome ${name}!!
+</div>
+```
+
+在 `application.properties` 中配置静态资源路径和后缀名：
+
+```properties
+spring.mvc.view.prefix=/WEB-INF/jsp/
+spring.mvc.view.suffix=.jsp
+```
+
+### Thymeleaf
+
+[Thymeleaf](https://www.thymeleaf.org/index.html) 是一个现代服务端渲染 Java 模板引擎。
