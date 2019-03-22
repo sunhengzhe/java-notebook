@@ -35,7 +35,7 @@ All problems in computer science can be solved by another level of indirection.
 #### 解决方案
 
 - 如果一个查询返回的数据为空（不管是数据不存在，还是系统故障），仍然把这个空结果进行缓存，但它的过期时间会很短，最长不超过五分钟。
-- 布隆过滤器
+- 布隆过滤器，提前判断数据是否存在。
 
 ### 缓存击穿
 
