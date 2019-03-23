@@ -37,3 +37,8 @@ add 一个元素时，对元素做 k 次哈希，求得 k 个位置，将这些�
 
 另外需要注意的是，因为布隆过滤器用在查询的场景，所以哈希函数不能选择比较慢的，比如 Sha-1、MD5。应该选择如 [murmur](https://sites.google.com/site/murmurhash/)
 、[fnv](http://isthe.com/chongo/tech/comp/fnv/) 系列哈希和 [HashMix](http://www.google.com/codesearch/url?ct=ext&url=http://www.concentric.net/~Ttwang/tech/inthash.htm&usg=AFQjCNEBOwEAd_jb5vYSckmG7OxrkeQhLA) 等。
+
+## 参考
+
+- [Probabilistic Data structures: Bloom filter](https://hackernoon.com/probabilistic-data-structures-bloom-filter-5374112a7832)
+- [Bloom Filters](https://www.jasondavies.com/bloomfilter/)
