@@ -15,6 +15,7 @@
 ## 编程范式
 
 - [AOP](./src/main/java/aop/README.md)
+- [Java 中的函数式编程](./src/main/java/functional_programming/README.md)
 
 ## 数据结构
 
