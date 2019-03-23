@@ -24,3 +24,16 @@ add 一个元素时，对元素做 k 次哈希，求得 k 个位置，将这些�
 使用计数过滤器可以解决这个问题，计数过滤器阵列位置（桶）从单个位扩展为 n 位计数器。简单来讲，就是每一位不再存比特，而是存整数，如果要删除，将对应的位减一。
 
 它的缺点也是显而易见的：需要占用更多的空间。
+
+## 决定布隆过滤器的参数
+
+布隆过滤器是一定会有一个错误率的，设错误率为 p。它与布隆过滤器的大小 m、存放元素个数以及哈希函数个数 k 的关系为：
+
+![](https://cdn-images-1.medium.com/max/1600/1*4QvZrOV7d9XgQXqVaIOGPg.png)
+
+当我们确定要存放的元素个数 n、自己需要的错误率 p 后，可以分别求得 m 与 k：
+
+![](https://cdn-images-1.medium.com/max/1600/1*eDTlEUQCLRB8wL96GileXA.png)
+
+另外需要注意的是，因为布隆过滤器用在查询的场景，所以哈希函数不能选择比较慢的，比如 Sha-1、MD5。应该选择如 [murmur](https://sites.google.com/site/murmurhash/)
+、[fnv](http://isthe.com/chongo/tech/comp/fnv/) 系列哈希和 [HashMix](http://www.google.com/codesearch/url?ct=ext&url=http://www.concentric.net/~Ttwang/tech/inthash.htm&usg=AFQjCNEBOwEAd_jb5vYSckmG7OxrkeQhLA) 等。
