@@ -208,4 +208,109 @@ public void get_optional_with_of_with_null() {
 }
 ```
 
+## 条件判断
 
+`filter` 方法用来验证 Optional 的值是否符合条件，它接受一个 Predicate 作为参数。如果 Optional 的值为 null 或 Predicate 判断不通过，则返回 empty；否则返回该 Optional。
+
+```java
+@Test
+public void test_optional_by_filter() {
+    Integer nullYear = null;
+    Optional<Integer> integer = Optional.ofNullable(nullYear)
+                                        .filter(value -> value == 2018);
+    assertEquals(Optional.empty(), integer);
+
+    Integer year = 2019;
+    Optional<Integer> integer1 = Optional.ofNullable(year)
+                                         .filter(value -> value == 2018);
+    assertEquals(Optional.empty(), integer1);
+
+    Optional<Integer> integer2 = Optional.ofNullable(year)
+                                         .filter(value -> value == 2019);
+    assertEquals("Optional[2019]", integer2.toString());
+}
+```
+
+filter 相对传统 if 而言省去了很多样板代码，如：
+
+```java
+public boolean priceIsInRange1(Modem modem) {
+    boolean isInRange = false;
+ 
+    if (modem != null && modem.getPrice() != null
+      && (modem.getPrice() >= 10
+        && modem.getPrice() <= 15)) {
+ 
+        isInRange = true;
+    }
+    return isInRange;
+}
+```
+
+使用 Optional 实现同样的方法：
+
+```java
+public boolean priceIsInRange2(Modem modem2) {
+     return Optional.ofNullable(modem2)
+       .map(Modem::getPrice)
+       .filter(p -> p >= 10)
+       .filter(p -> p <= 15)
+       .isPresent();
+}
+```
+
+## 处理值
+
+处理值的方式有 map 和 flatMap。
+
+### map
+
+使用 map 可以对 Optional 中的值进行处理并返回。
+
+```java
+@Test
+public void map_optional() {
+    Optional<String> java = Optional.of("java");
+    String result = java.map(String::toUpperCase).orElse("");
+    assertEquals("JAVA", result);
+}
+```
+
+### flatMap
+
+flatMap 与 map 的区别在于 map 处理值后会包装返回值，而 flatMap 不包装。
+
+```java
+public class Person {
+    private String name;
+
+    public Person(String name) {
+        this.name = name;
+    }
+
+    public Optional<String> getName() {
+        return Optional.ofNullable(name);
+    }
+}
+
+@Test
+public void flatMap_optional() {
+    Person person = new Person("john");
+    Optional<Person> personOptional = Optional.of(person);
+
+    String byMap = personOptional.map(Person::getName)
+                                 // 需要手动打开包装
+                                 .orElse(Optional.empty())
+                                 .orElse("");
+
+    String byFlatMap = personOptional.flatMap(Person::getName)
+                                     .orElse("");
+
+    assertEquals("john", byMap);
+    assertEquals("john", byFlatMap);
+}
+```
+
+## 参考
+
+- [Guide To Java 8 Optional](https://www.baeldung.com/java-optional)
