@@ -96,7 +96,7 @@ public void check_optional_with_isEmpty() {
 
 ## 条件动作
 
-关于条件的动作有 `ifPresent`、`orElse`、`orElseGet`、`orElseThrow`，如同命令式编程中的 `if-else`。
+关于条件的动作有 `ifPresent`、`orElse`、`orElseGet`、`orElseThrow`、`or`、`ifPresentOrElse`，它们执行与否取决于 Optional 的值是否为 null。
 
 为了避免空指针异常，我们会经常写下面的代码：
 
@@ -191,6 +191,39 @@ public void condition_action_orElseThrow() {
 }
 ```
 
+### or
+
+or 是 Java 9 中新增方法。与 orElseGet 很相似，or 也接受一个 Supplier，但 or 返回的是一个新的 Optional。
+
+```java
+@Test
+public void condition_or_optional() {
+    Optional<String> java = Optional.of("java")
+                                    .or(() -> Optional.of("javascript"));
+    Optional<Object> java1 = Optional.empty()
+                                     .or(() -> Optional.of("java"));
+    assertEquals("java", java.get());
+    assertEquals("java", java1.get());
+}
+```
+
+### ifPresentOrElse
+
+ifPresentOrElse 是 Java 9 中新增的方法。ifPresent 就如同命令式编程中的 `if-else`，它接受两个参数，第一个为 Consumer，在 Optional 有值时调用，第二个为 Runnable，在无值时调用：
+
+```java
+@Test
+public void condition_ifPresentOrElse() {
+    // value is java
+    Optional.of("java")
+            .ifPresentOrElse(value -> System.out.println("value is " + value), () -> System.out.println("ooops"));
+
+    // ooops
+    Optional.empty()
+            .ifPresentOrElse(value -> System.out.println("value is " + value), () -> System.out.println("ooops"));
+}
+```
+
 ## 获取值
 
 Optional 提供了一个 `get` 方法获取值，但 get 方法只能在 Optional 有值时使用，否则会抛出 `NoSuchElementException` 异常：
@@ -208,7 +241,7 @@ public void get_optional_with_of_with_null() {
 }
 ```
 
-## 条件判断
+## 验证值
 
 `filter` 方法用来验证 Optional 的值是否符合条件，它接受一个 Predicate 作为参数。如果 Optional 的值为 null 或 Predicate 判断不通过，则返回 empty；否则返回该 Optional。
 
@@ -311,6 +344,49 @@ public void flatMap_optional() {
 }
 ```
 
+## 流操作
+
+在 Java 9 中，新增了 stream 方法，可以对 Optional 创建 stream，然后可以使用 stream 上的所有方法。
+
+如果 Optional 为 empty，则创建一个 empty 的 stream。
+
+```java
+@Test
+public void treat_optional_as_stream() {
+    List<String> collect = Optional.of("java")
+                                   .stream()
+                                   .map(value -> value.concat("script"))
+                                   .collect(Collectors.toList());
+
+    assertArrayEquals(new String[]{"javascript"}, collect.toArray());
+
+
+    // empty optional
+    Optional<String> value = Optional.empty();
+    List<String> emptyStream = value.stream()
+                                    .map(String::toUpperCase)
+                                    .collect(Collectors.toList());
+
+    assertEquals(0, emptyStream.size());
+}
+```
+
+所以使用 stram 也可以筛出非 null 的 Optional 的值：
+
+```java
+@Test
+public void filter_empty_by_stream() {
+    List<Optional<String>> languages = List.of(Optional.of("java"), Optional.empty(), Optional.empty(), Optional.of("javascript"));
+    List<String> collect = languages.stream()
+                                    .flatMap(Optional::stream)
+                                    .collect(Collectors.toList());
+
+    assertArrayEquals(new String[]{"java", "javascript"}, collect.toArray());
+}
+```
+
 ## 参考
 
 - [Guide To Java 8 Optional](https://www.baeldung.com/java-optional)
+- [Java 9 Optional API Additions](https://www.baeldung.com/java-9-optional)
+- [Filtering a Stream of Optionals in Java](https://www.baeldung.com/java-filter-stream-of-optional)

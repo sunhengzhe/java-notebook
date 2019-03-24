@@ -5,6 +5,8 @@ import org.junit.Test;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.junit.Assert.*;
 
@@ -159,5 +161,55 @@ public class OptionalTest {
 
         assertEquals("john", byMap);
         assertEquals("john", byFlatMap);
+    }
+
+    @Test
+    public void condition_or_optional() {
+        Optional<String> java = Optional.of("java")
+                                        .or(() -> Optional.of("javascript"));
+        Optional<Object> java1 = Optional.empty()
+                                         .or(() -> Optional.of("java"));
+        assertEquals("java", java.get());
+        assertEquals("java", java1.get());
+    }
+
+    @Test
+    public void condition_ifPresentOrElse() {
+        // value is java
+        Optional.of("java")
+                .ifPresentOrElse(value -> System.out.println("value is " + value), () -> System.out.println("ooops"));
+
+        // ooops
+        Optional.empty()
+                .ifPresentOrElse(value -> System.out.println("value is " + value), () -> System.out.println("ooops"));
+    }
+
+    @Test
+    public void treat_optional_as_stream() {
+        List<String> collect = Optional.of("java")
+                                       .stream()
+                                       .map(value -> value.concat("script"))
+                                       .collect(Collectors.toList());
+
+        assertArrayEquals(new String[]{"javascript"}, collect.toArray());
+
+
+        // empty optional
+        Optional<String> value = Optional.empty();
+        List<String> emptyStream = value.stream()
+                                        .map(String::toUpperCase)
+                                        .collect(Collectors.toList());
+
+        assertEquals(0, emptyStream.size());
+    }
+
+    @Test
+    public void filter_empty_by_stream() {
+        List<Optional<String>> languages = List.of(Optional.of("java"), Optional.empty(), Optional.empty(), Optional.of("javascript"));
+        List<String> collect = languages.stream()
+                                        .flatMap(Optional::stream)
+                                        .collect(Collectors.toList());
+
+        assertArrayEquals(new String[]{"java", "javascript"}, collect.toArray());
     }
 }
