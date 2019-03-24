@@ -1,8 +1,33 @@
 # Optional
 
-Java 8 引入了 Optional。Optional 用来代表一种可能有可能没有的数据，可以用来避免空指针异常。
+一位智者说过，没有处理过空指针异常就不算一个真正的 Java 程序员。这当然是开玩笑，但是空指针异常确实是很多程序出错的源头。
+于是，在 Java 8 引入了 `java.util.Optional`，Optional 用来代表一种 **可能有可能没有** 的数据，可以用来缓解空指针异常的问题。
 
-Optional 即函数式编程中的 Maybe。
+简单地说，Optional 用来避免这种代码：
+
+```java
+String version = "UNKNOWN";
+if(computer != null){
+  Soundcard soundcard = computer.getSoundcard();
+  if(soundcard != null){
+    USB usb = soundcard.getUSB();
+    if(usb != null){
+      version = usb.getVersion();
+    }
+  }
+}
+```
+
+如果用 Optional 表示呢？大概是这样：
+
+```java
+String version = computer.flatMap(Computer::getSoundcard)
+                         .flatMap(Soundcard::getUSB)
+                         .map(USB::getVersion)
+                         .orElse("UNKNOWN");
+```
+
+实际上，Optional 即函数式编程中的 Maybe。
 
 以下示例在 [OptionalTest.java](../../../test/java/functional_programming/OptionalTest.java) 中。
 
@@ -387,6 +412,7 @@ public void filter_empty_by_stream() {
 
 ## 参考
 
+- [Tired of Null Pointer Exceptions? Consider Using Java SE 8's Optional!](https://www.oracle.com/technetwork/articles/java/java8-optional-2175753.html)
 - [Guide To Java 8 Optional](https://www.baeldung.com/java-optional)
 - [Java 9 Optional API Additions](https://www.baeldung.com/java-9-optional)
 - [Filtering a Stream of Optionals in Java](https://www.baeldung.com/java-filter-stream-of-optional)
