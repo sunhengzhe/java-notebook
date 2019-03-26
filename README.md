@@ -1,6 +1,6 @@
 # Java Notes
 
-## Java Basic
+## 语言层面
 
 - [枚举](./src/main/java/basic/enums/README.md)
 - [注解](./src/main/java/basic/annotation/README.md)
@@ -11,6 +11,7 @@
 - [聚合操作](./src/main/java/basic/aggregate_operations/README.md)
 - [集合](./src/main/java/basic/collection/README.md)
 - [并发](./src/main/java/basic/concurrency/README.md)
+- [异常](./src/main/java/basic/exception/README.md)
 
 ## 编程范式
 
