@@ -2,7 +2,7 @@
 
 > 缓存是银弹吗?
 
-All problems in computer science can be solved by another level of indirection.
+All problems in computer science can be solved by another level of indirection. —— David Wheeler
 
 ### 缓存无处不在
 
