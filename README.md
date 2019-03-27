@@ -47,6 +47,10 @@
 
 - [正则表达式](./src/main/java/regex/README.md)
 
+## 领域驱动设计
+
+- [Event Storming](./src/main/java/ddd/event_storming.md)
+
 ## 架构
 
 - [架构](./src/main/java/architecture/README.md)
