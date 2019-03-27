@@ -54,3 +54,75 @@ class User {
 
 要决定抛出 checked exception 还是 unchecked exception，这取决于要表示的异常场景。如果抛出的异常代表的是使用上的问题，这抛出的是一个软件异常，你可能需要抛一个 RuntimeException 的子类；
 除此之外，抛出的非软件异常，而是每次使用这个方法都必须要处理的，那么就需要抛出一个 checked exception。
+
+## try-with-resources
+
+在 Java 7 中引入了 try-with-resources，可以保证在 try 语句块中声明的资源能够在执行完后自动关闭。前提是资源实现了 `AutoCloseable` 接口。
+
+### 使用
+
+在 try 语句中对资源进行声明和初始化：
+
+```java
+try (Scanner scanner = new Scanner(new File("test.txt"))) {
+    while (scanner.hasNext()) {
+        System.out.println(scanner.nextLine());
+    }
+} catch (FileNotFoundException fnfe) {
+    fnfe.printStackTrace();
+}
+```
+
+这与原有的 try-catch-finally 作用是相同的，但相对而言更简洁：
+
+```java
+Scanner scanner = null;
+try {
+    scanner = new Scanner(new File("test.txt"));
+    while (scanner.hasNext()) {
+        System.out.println(scanner.nextLine());
+    }
+} catch (FileNotFoundException e) {
+    e.printStackTrace();
+} finally {
+    if (scanner != null) {
+        scanner.close();
+    }
+}
+```
+
+如果有多个资源需要关闭，只需要在 try 语句中使用分号分隔即可：
+
+```java
+try (Scanner scanner = new Scanner(new File("testRead.txt"));
+    PrintWriter writer = new PrintWriter(new File("testWrite.txt"))) {
+    while (scanner.hasNext()) {
+        writer.print(scanner.nextLine());
+    }
+}
+```
+
+### Closeable
+
+在 try 语句中声明的资源必须要实现 Closeable 或者 AutoCloseable（Closeable 继承自 AutoCloseable），在 try 语句块执行结束后会自动调用资源的 close 方法。
+
+另外 try-resource 语句同样也支持 catch 和 finally 语句，它们的行为和传统的行为是一样的。
+
+```java
+// try-with-resource
+try (AutoCloseableResourcesFirst af = new AutoCloseableResourcesFirst();
+     AutoCloseableResourcesSecond as = new AutoCloseableResourcesSecond()) {
+    af.doSomething();
+    as.doSomething();
+    throw new MyUncheckedException();
+} catch (MyUncheckedException e) {
+    System.out.println("try-with-resource end");
+} finally {
+    System.out.println("this also works");
+}
+```
+
+## 参考
+
+- [Exceptions in Java](https://www.javaworld.com/article/2076700/exceptions-in-java.html)
+- [Java – Try with Resources](https://www.baeldung.com/java-try-with-resources)
