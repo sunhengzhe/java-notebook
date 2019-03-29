@@ -56,6 +56,42 @@ GET /megacorp/employee/_search
 }
 ```
 
+返回部分数据：
+
+```
+# 从 _source 中筛选
+GET /megacorp/employee/1?_source=age,last_name
+# 只返回 _source 内容
+GET /megacorp/employee/1/_source
+```
+
+更新文档：
+
+```
+PUT /website/blog/123
+```
+
+创建文档：
+
+```
+# 让 elasticsearch 自动创建 id
+POST /website/blog/
+
+# 然而，如果已经有自己的 _id ，那么我们必须告诉 Elasticsearch ，只有在相同的 _index 、 _type 和 _id 不存在时才接受我们的索引请求。
+
+# 方法一
+PUT /website/blog/123?op_type=create
+# 方法二
+PUT /website/blog/123/_create
+# 如果具有相同的 _index 、 _type 和 _id 的文档已经存在，Elasticsearch 将会返回 409 Conflict 响应码
+```
+
+删除文档：
+
+```
+DELETE /website/blog/123
+```
+
 ### 分布式
 
 一个运行中的 Elasticsearch 实例称为一个节点，而集群是由一个或者多个拥有相同 cluster.name 配置的节点组成， 它们共同承担数据和负载的压力。当有节点加入集群中或者从集群中移除节点时，集群将会重新平均分布所有的数据。
