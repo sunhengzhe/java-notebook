@@ -12,6 +12,7 @@
 - [集合](./src/main/java/basic/collection/README.md)
 - [并发](./src/main/java/basic/concurrency/README.md)
 - [异常](./src/main/java/basic/exception/README.md)
+- [IO](./src/main/java/basic/io/README.md)
 
 ## 编程范式
 
@@ -50,6 +51,10 @@
 ## 领域驱动设计
 
 - [Event Storming](./src/main/java/ddd/event_storming.md)
+
+## 全文检索
+
+- [Elasticsearch](./src/main/java/elasticsearch/README.md)
 
 ## 架构
 
