@@ -64,3 +64,9 @@ Scanner 默认使用空白符分隔 token，空白符包括空格、制表符和
 数据流支持基本数据类型和字符串的二进制 I/O，所有的数据流都实现自 DataInput 或 DataOutput 接口。
 
 如 DataInputStream 和 DataOutputStream。
+
+## 对象流 Object Stream
+
+就如数据流支持基本数据类型的 I/O 一样，对象流支持对象的 I/O。大多数，但不是所有的标准类支持序列化它们的对象。能序列化的类实现了 Serializable 接口。
+
+对象流类有 ObjectInputStream 和 ObjectOutputStream，它们分别实现了 ObjectInput 和 ObjectOutput，而这两个接口又分别是 DataInput 和 DataOutput 的子接口。
