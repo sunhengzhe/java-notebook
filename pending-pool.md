@@ -4,6 +4,35 @@
 
 问题很重要，一定要有问题。
 
+## 2019/04/04
+
+### SQL：查询分组内最大/最小值
+
+表结构 `user`：
+
+| name | class | score |
+| --- | --- | --- |
+| zhangsan | A | 90 |
+| lisi | A | 89 |
+| wangwu | A | 93 |
+| maliu | B | 91 |
+| zhaosi | B | 97 |
+| guoba | C | 88 |
+
+查询每个班级中成绩最好的学生名。
+
+首先查询每个班级中最高分：`select class, max(score) score from user group by class`
+
+然后在表中再查这些最高分的对应的学生：`select a.* from user a inner join (..) b on a.class = b.class and a.score = b.score`。
+
+综合，即
+
+```sql
+select a.* from user a inner join (
+  select class, max(score) score from user group by class
+) b on a.class = b.class and a.score = b.score
+```
+
 ## 2019/04/03
 
 ### 硬链接和软链接
