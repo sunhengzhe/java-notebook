@@ -6,6 +6,24 @@
 
 ## 2019/04/04
 
+### etcd 与服务发现
+
+[etcd](https://github.com/etcd-io/etcd) is a distributed reliable key-value store for the most critical data of a distributed system
+
+The name "etcd" originated from two ideas, the unix "/etc" folder and "d"istibuted systems. The "/etc" folder is a place to store configuration data for a single system whereas etcd stores configuration information for large scale distributed systems. Hence, a "d"istributed "/etc" is "etcd".
+
+- [etcd versus other key-value stores](https://coreos.com/etcd/docs/latest/learning/why.html)
+
+etcd 是受到 ZooKeeper 与 doozer 启发而催生的项目，有在 CoreOS 和 Kubernetes 中使用到。
+
+etcd 的应用场景之一是服务发现（Service Discovery）
+
+- [服务发现的基本原理](https://zhuanlan.zhihu.com/p/34332329)
+
+同样是 kv 数据库，和 redis 有什么不同？
+
+redis 侧重于存储，是一个数据库，但 etcd 侧重于分布式一致性的保证，所以可以直接用来做服务注册，而 redis 需要额外的开发
+
 ### SQL：查询分组内最大/最小值
 
 表结构 `user`：
