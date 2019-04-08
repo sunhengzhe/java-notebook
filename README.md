@@ -13,7 +13,8 @@
 - [并发](./src/main/java/basic/concurrency/README.md)
 - [异常](./src/main/java/basic/exception/README.md)
 - [IO](./src/main/java/basic/io/README.md)
-- [接口](./src/main/java/basic/)
+- [接口](./src/main/java/basic/interfaces/README.md)
+- [网络](./src/main/java/basic/network/README.md)
 
 ## 编程范式
 

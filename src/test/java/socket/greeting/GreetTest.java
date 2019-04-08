@@ -1,5 +1,6 @@
 package socket.greeting;
 
+import basic.network.socket.GreetClient;
 import org.junit.Test;
 
 import java.io.IOException;
