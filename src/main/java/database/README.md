@@ -1,9 +1,5 @@
 # 数据库
 
-- [h2](./h2/README.md)
-- [mysql](./mysql/README.md)
-- [postgres](postgresql/README.md)
-
 ## 内存数据库
 
 内存数据库会在应用启动的时候创建，并在应用停止时销毁。为什么会有内存数据库呢？它有下列好处：
