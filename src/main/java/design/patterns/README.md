@@ -4,19 +4,19 @@
 
 ## 创建型模式
 
-- [简单工厂模式](./src/main/java/design/patterns/factory/simple/README.md)
-- [工厂方法模式](./src/main/java/design/patterns/factory/method/README.md)
-- [抽象工厂模式](./src/main/java/design/patterns/factory/abstract_/README.md)
+- [简单工厂模式](./factory/simple/README.md)
+- [工厂方法模式](./factory/method/README.md)
+- [抽象工厂模式](./factory/abstract_/README.md)
 
 ## 结构型模式
 
-- [代理模式](./src/main/java/design/patterns/proxy/README.md)
-- [适配器模式](./src/main/java/design/patterns/adapter/README.md)
+- [代理模式](./proxy/README.md)
+- [适配器模式](./adapter/README.md)
 
 ## 行为型模式
 
-- [中介者模式](./src/main/java/design/patterns/mediator/README.md)
-- [策略模式](./src/main/java/design/patterns/strategy/README.md)
+- [中介者模式](./mediator/README.md)
+- [策略模式](./strategy/README.md)
 
 ## 参考
 
