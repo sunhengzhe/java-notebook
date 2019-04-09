@@ -2,7 +2,7 @@
 
 - [h2](./h2/README.md)
 - [mysql](./mysql/README.md)
-- [postgres](./postgres/README.md)
+- [postgres](postgresql/README.md)
 
 ## 内存数据库
 

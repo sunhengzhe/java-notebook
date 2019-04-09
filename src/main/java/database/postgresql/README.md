@@ -1,4 +1,4 @@
-# Postgres
+# PostgreSQL
 
 ## 一、Postgres 基础
 
@@ -15,7 +15,7 @@
 #### 连接 psql
 
 ```bash
-psql -U postgres -p 5432
+psql -U <username> -p 5432
 ```
 
 #### 退出 psql
@@ -143,7 +143,7 @@ copy lead from '/home/downloads/lead.csv' with csv header;
 如果你是在 docker 容器中进行此操作，需要注意指定的 path 是容器的 path，可以先把宿主机的文件先拷到容器中：
 
 ```bash
-docker cp ~/Desktop/status.csv retention-postgres:/home/downloads/
+docker cp <filename> <docker container>:<path>
 ```
 
 #### 从 sql 文件导入数据库
