@@ -85,6 +85,28 @@ execution(* aop.Performance.perform(..)) && within(aop.*)
 execution(* aop.Performance.perform(..)) && bean(woodstock)
 ```
 
+如果拦截的参数带参数，可以使用 `args()` 来绑定参数。
+
+```
+execution(* aop.Performance.perform(..)) && args(name, time)
+```
+
+在调用 proceed 方法时，使用对象数组将参数传入：
+
+```java
+@Around("performance() && args(name, time)")
+public void watchPerformance(ProceedingJoinPoint jp, String name, int time) {
+    try {
+        System.out.println("Silencing cell phones");
+        System.out.println("Taking seats...");
+        jp.proceed(new Object[]{"(" + name + ")", time * 10});
+        System.out.println("CLAP CLAP CLAP!!!");
+    } catch (Throwable throwable) {
+        throwable.printStackTrace();
+    }
+}
+```
+
 #### 使用注解定义切面
 
 - `@Aspect` 表明该类是一个切面

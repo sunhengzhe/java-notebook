@@ -1,5 +1,5 @@
 package aop;
 
 public interface Performance {
-    void perform();
+    void perform(String name, int time);
 }
