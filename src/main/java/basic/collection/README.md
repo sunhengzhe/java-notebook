@@ -158,3 +158,30 @@ Object[] a = c.toArray();
 ```java
 String[] a = c.toArray(new String[0]);
 ```
+
+## 数组与 List 的互转
+
+### Arrays.asList
+
+使用 asList 将非基本数据类型数组转为 List。为什么不能是非基本类型数组？因为 asList 接受的参数是一个泛型的变长参数，而基本数据类型是无法泛型化的。所以想作为泛型参数就必须使用其所对应的包装类型。
+
+```java
+String[] strs = {"apple", "banana"};
+List<String> strings = Arrays.asList(strs);
+Assert.assertEquals(2, strings.size());
+```
+
+另外需要注意的是该 List 为 Arrays 的内部类，而不是 java.util.ArrayList，该 List 为不可变 List。
+
+### Stream
+
+Java 8 以上，基本数据类型的数组可以使用对应的 Stream 的 of 方法转为 stream，然后通过 stream 转为 list。
+
+```java
+int[] numbers = {1, 2, 3};
+List<Integer> collect = IntStream.of(numbers)
+                                 .boxed()
+                                 .map(n -> n * 2)
+                                 .collect(Collectors.toList());
+Assert.assertEquals(4, collect.get(1).intValue());
+```
