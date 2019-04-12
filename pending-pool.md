@@ -4,6 +4,20 @@
 
 问题很重要，一定要有问题。
 
+## 2019/04/12
+
+Spring 中的 `Scheduled`，有三种
+
+- fixedDelay
+- cron
+- fixedRate
+
+fixedRate 与 javascript 中的 interval 类似。
+
+需要使用一下，并看一下 Scheduled 的实现原理
+
+- [\[肥朝\]原理暂且不谈，定时器你当真会用？](https://juejin.im/post/5caf8419e51d456e3b701863?utm_source=gold_browser_extension)
+
 ## 2019/04/10
 
 时间复杂度并不是表示一个程序解决问题需要花多少时间，而是当问题规模扩大后，程序需要的时间长度增长得有多快。
