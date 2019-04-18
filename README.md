@@ -25,6 +25,10 @@
 
 - [布隆过滤器](./src/main/java/data_structure/bloom_filter)
 
+## 算法
+
+- [LRU](./src/main/java/algorithm/lru)
+
 ## 数据存储
 
 - [Database](./src/main/java/database)
