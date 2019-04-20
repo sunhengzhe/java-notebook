@@ -27,8 +27,8 @@ fixedRate 与 javascript 中的 interval 类似。
 ## 2019/04/08
 
 平衡二叉树、红黑树、B 树、B+树
-- [AVL Tree 可视化](https://www.cs.usfca.edu/~galles/visualization/AVLtree.html)
 
+- [AVL Tree 可视化](https://www.cs.usfca.edu/~galles/visualization/AVLtree.html)
 
 - [往 mysql 中插入一亿条数据](https://www.jianshu.com/p/3e18feb65b26)
 
