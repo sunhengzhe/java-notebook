@@ -60,3 +60,15 @@ OK
 ```jshelllanguage
 set mykey haha ex 10
 ```
+
+## LRU
+
+Redis 的 LRU 是 [近似的 LRU](https://redis.io/topics/lru-cache)，实现方式：
+
+### v1
+
+随机取出 N 个元素，移除其中 idle 时间最长的元素。
+
+### v2 
+
+引入一个 pool，在 sample 数据中，只有 pool 为空或者数据至少比 pool 中一个数据的 idle 时间大时才放入 pool。
