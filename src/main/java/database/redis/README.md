@@ -61,7 +61,7 @@ OK
 set mykey haha ex 10
 ```
 
-## LRU
+## LRU（Least Recently Used）
 
 Redis 的 LRU 是 [近似的 LRU](https://redis.io/topics/lru-cache)，实现方式：
 
@@ -72,3 +72,7 @@ Redis 的 LRU 是 [近似的 LRU](https://redis.io/topics/lru-cache)，实现方
 ### v2 
 
 引入一个 pool，在 sample 数据中，只有 pool 为空或者数据至少比 pool 中一个数据的 idle 时间大时才放入 pool。
+
+## LFU（Least Frequently Used）
+
+在 24 位中使用 16 位记录时间，8 位记录使用次数。
