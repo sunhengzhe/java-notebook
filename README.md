@@ -71,6 +71,10 @@
 
 - [Event Storming](./src/main/java/ddd/event_storming.md)
 
+## IDE
+
+- [IntelliJ IDEA](./src/main/java/idea)
+
 ## 全文检索
 
 - [Elasticsearch](./src/main/java/elasticsearch)
