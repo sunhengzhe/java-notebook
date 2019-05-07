@@ -67,6 +67,12 @@
 
 `option + command + M` 提取函数
 
+### Git
+
+`command + T` 更新当前项目
+
+打开 Preference 搜索 VCS 改变 git diff 高亮颜色
+
 ### 智能提示
 
 `option + enter` 智能提示
