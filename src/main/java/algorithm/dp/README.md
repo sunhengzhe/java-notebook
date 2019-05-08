@@ -14,7 +14,17 @@ Dynamic Programming is an algorithmic paradigm that solves a given complex probl
 1) Overlapping Subproblems
 2) Optimal Substructure
 
-Two different ways to store the values
+两种方法
 
 a) Memoization (Top Down)
 b) Tabulation (Bottom Up)
+
+## LeetCode 题
+
+- [10. Regular Expression Matching](https://leetcode.com/problems/regular-expression-matching/)
+- [32. Longest Valid Parentheses](https://leetcode.com/problems/longest-valid-parentheses/)
+- [115. Distinct Subsequences](https://leetcode.com/problems/distinct-subsequences/)
+
+## 参考
+
+- [LCS（Longest Common Subsequences） 问题](https://www.ics.uci.edu/~eppstein/161/960229.html)
