@@ -9,7 +9,7 @@ Dynamic Programming is an algorithmic paradigm that solves a given complex probl
 - breaking it into subproblems
 - stores the results of subproblems
 
-解决两类问题
+解决具备两种属性的问题
 
 1) Overlapping Subproblems
 2) Optimal Substructure
@@ -18,6 +18,16 @@ Dynamic Programming is an algorithmic paradigm that solves a given complex probl
 
 a) Memoization (Top Down)
 b) Tabulation (Bottom Up)
+
+## Dynamic Programming VS. Divide and Conquer
+
+Similarities:
+
+Both paradigms work by combining solutions to sub-problems.
+
+Difference:
+
+Dynamic programming is mainly used when the Overlapping Subproblems property satisfied.
 
 ## LeetCode 题
 
@@ -28,3 +38,5 @@ b) Tabulation (Bottom Up)
 ## 参考
 
 - [LCS（Longest Common Subsequences） 问题](https://www.ics.uci.edu/~eppstein/161/960229.html)
+- [0-1 Knapsack Problem | DP-10](https://www.geeksforgeeks.org/0-1-knapsack-problem-dp-10/)
+- [Top 50 Dynamic Programming Practice Problems](https://blog.usejournal.com/top-50-dynamic-programming-practice-problems-4208fed71aa3)

@@ -29,6 +29,7 @@
 ## 算法
 
 - [LRU](./src/main/java/algorithm/lru)
+- [动态规划](./src/main/java/algorithm/dp)
 
 ### 排序
 
